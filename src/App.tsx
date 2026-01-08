@@ -66,7 +66,7 @@ function AppContent() {
   return (
     <div className="min-h-screen bg-black py-8 px-4">
       <div className="max-w-7xl mx-auto">
-        <Dashboard lastUpdated={lastUpdated} onRefresh={handleRefresh} isRefreshing={isFetching} />
+        <Dashboard lastUpdated={lastUpdated} onRefresh={handleRefresh} isRefreshing={isFetching} exchangeRate={exchangeRate} />
 
         <div className="flex justify-between items-center mb-8">
           <h2 className="text-3xl font-black text-white uppercase tracking-tight">Your Goals</h2>

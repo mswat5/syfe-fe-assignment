@@ -16,6 +16,7 @@ export const GoalCard = ({ goal, exchangeRate }: GoalCardProps) => {
 
   const savedAmount = calculateSavedAmount(goal);
   const progress = calculateProgress(goal);
+  const remainingAmount = goal.totalAmount - savedAmount;
 
   const otherCurrency = goal.currency === 'INR' ? 'USD' : 'INR';
   const convertedTarget = convertCurrency(goal.totalAmount, goal.currency, otherCurrency, exchangeRate);
@@ -62,9 +63,14 @@ export const GoalCard = ({ goal, exchangeRate }: GoalCardProps) => {
 
         {goal.contributions.length > 0 && (
           <div className="mt-6 pt-4 border-t-2 border-gray-800">
-            <p className="text-xs text-gray-500 font-bold uppercase tracking-wider">
-              {goal.contributions.length} Contribution{goal.contributions.length !== 1 ? 's' : ''}
-            </p>
+            <div className="flex justify-between items-center">
+              <p className="text-xs text-gray-500 font-bold uppercase tracking-wider">
+                {goal.contributions.length} Contribution{goal.contributions.length !== 1 ? 's' : ''}
+              </p>
+              <p className="text-xs text-gray-400 font-mono">
+                Remaining: <span className="font-bold text-orange-400">{formatCurrency(remainingAmount, goal.currency)}</span>
+              </p>
+            </div>
           </div>
         )}
       </Card>

@@ -6,9 +6,10 @@ type DashboardProps = {
   lastUpdated: string;
   onRefresh: () => void;
   isRefreshing: boolean;
+  exchangeRate: number;
 };
 
-export const Dashboard = ({ lastUpdated, onRefresh, isRefreshing }: DashboardProps) => {
+export const Dashboard = ({ lastUpdated, onRefresh, isRefreshing, exchangeRate }: DashboardProps) => {
   const {goals} = useGoalsStore();
 
   const totalTargetINR = goals
@@ -31,6 +32,12 @@ export const Dashboard = ({ lastUpdated, onRefresh, isRefreshing }: DashboardPro
   const totalSaved = totalSavedINR + totalSavedUSD;
   const overallProgress = totalTarget > 0 ? (totalSaved / totalTarget) * 100 : 0;
 
+  // Convert amounts to other currency
+  const totalTargetINRinUSD = totalTargetINR / exchangeRate;
+  const totalTargetUSDinINR = totalTargetUSD * exchangeRate;
+  const totalSavedINRinUSD = totalSavedINR / exchangeRate;
+  const totalSavedUSDinINR = totalSavedUSD * exchangeRate;
+
   return (
     <div className="bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 border-4 border-gray-700 p-8 mb-8 shadow-[12px_12px_0_rgba(0,0,0,0.5)]">
       <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-6">
@@ -49,6 +56,7 @@ export const Dashboard = ({ lastUpdated, onRefresh, isRefreshing }: DashboardPro
           >
             {isRefreshing ? 'Refreshing...' : 'Refresh Rates'}
           </Button>
+          <p className="text-xs text-purple-100 font-mono">Exchange: 1 USD = ₹{exchangeRate.toFixed(2)}</p>
           <p className="text-xs text-purple-100 font-mono">Last updated: {lastUpdated}</p>
         </div>
       </div>
@@ -58,10 +66,16 @@ export const Dashboard = ({ lastUpdated, onRefresh, isRefreshing }: DashboardPro
           <p className="text-purple-200 text-xs mb-2 uppercase font-bold tracking-wider">Total Target</p>
           <div className="space-y-1">
             {totalTargetINR > 0 && (
-              <p className="text-3xl font-black text-white">{formatCurrency(totalTargetINR, 'INR')}</p>
+              <div>
+                <p className="text-3xl font-black text-white">{formatCurrency(totalTargetINR, 'INR')}</p>
+                <p className="text-xs text-gray-400 font-mono mt-1">≈ {formatCurrency(totalTargetINRinUSD, 'USD')}</p>
+              </div>
             )}
             {totalTargetUSD > 0 && (
-              <p className="text-3xl font-black text-white">{formatCurrency(totalTargetUSD, 'USD')}</p>
+              <div>
+                <p className="text-3xl font-black text-white">{formatCurrency(totalTargetUSD, 'USD')}</p>
+                <p className="text-xs text-gray-400 font-mono mt-1">≈ {formatCurrency(totalTargetUSDinINR, 'INR')}</p>
+              </div>
             )}
             {totalTarget === 0 && <p className="text-3xl font-black text-white">-</p>}
           </div>
@@ -71,10 +85,16 @@ export const Dashboard = ({ lastUpdated, onRefresh, isRefreshing }: DashboardPro
           <p className="text-purple-200 text-xs mb-2 uppercase font-bold tracking-wider">Total Saved</p>
           <div className="space-y-1">
             {totalSavedINR > 0 && (
-              <p className="text-3xl font-black text-white">{formatCurrency(totalSavedINR, 'INR')}</p>
+              <div>
+                <p className="text-3xl font-black text-white">{formatCurrency(totalSavedINR, 'INR')}</p>
+                <p className="text-xs text-gray-400 font-mono mt-1">≈ {formatCurrency(totalSavedINRinUSD, 'USD')}</p>
+              </div>
             )}
             {totalSavedUSD > 0 && (
-              <p className="text-3xl font-black text-white">{formatCurrency(totalSavedUSD, 'USD')}</p>
+              <div>
+                <p className="text-3xl font-black text-white">{formatCurrency(totalSavedUSD, 'USD')}</p>
+                <p className="text-xs text-gray-400 font-mono mt-1">≈ {formatCurrency(totalSavedUSDinINR, 'INR')}</p>
+              </div>
             )}
             {totalSaved === 0 && <p className="text-3xl font-black text-white">-</p>}
           </div>
