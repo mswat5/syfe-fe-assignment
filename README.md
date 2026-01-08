@@ -1,4 +1,4 @@
-# Syfe Goals Tracker
+# Syfe Savings Planner
 
 A simple app to track your financial goals and contributions. Set savings targets, add contributions, and watch your progress grow.
 
