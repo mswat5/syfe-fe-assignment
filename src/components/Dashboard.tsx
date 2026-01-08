@@ -32,7 +32,7 @@ export const Dashboard = ({ lastUpdated, onRefresh, isRefreshing }: DashboardPro
   const overallProgress = totalTarget > 0 ? (totalSaved / totalTarget) * 100 : 0;
 
   return (
-    <div className="bg-gradient-to-br from-purple-600 via-indigo-600 to-blue-600 border-4 border-black p-8 mb-8 shadow-[12px_12px_0_rgba(0,0,0,0.3)]">
+    <div className="bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 border-4 border-gray-700 p-8 mb-8 shadow-[12px_12px_0_rgba(0,0,0,0.5)]">
       <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-6">
         <div>
           <h1 className="text-4xl font-black text-white mb-2 tracking-tight uppercase">

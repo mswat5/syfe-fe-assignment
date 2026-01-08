@@ -22,7 +22,7 @@ export const GoalCard = ({ goal, exchangeRate }: GoalCardProps) => {
 
   return (
     <>
-      <Card>
+      <Card className="hover:border-yellow-400 transition-all hover:shadow-[10px_10px_0_rgba(250,204,21,0.5)]">
         <div className="flex justify-between items-start mb-6">
           <h3 className="text-xl font-black uppercase tracking-tight">{goal.name}</h3>
           <Button onClick={() => setShowModal(true)} variant="primary" className="text-xs">
